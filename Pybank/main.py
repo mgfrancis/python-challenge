@@ -34,9 +34,9 @@ with open(filename,'r', encoding = "utf8") as budget:
         if row[1] != 0:
             total_profit += int(row[1])
             prev_profit.append(int(row[1]))
-            next_profit.append(int(row[1]))
+            #next_profit.append(int(row[1]))
             
-    next_profit.pop(0)
+    next_profit = prev_profit[1:]
     
     #calculate monthly changes
     for data in range(len(next_profit)):
@@ -64,21 +64,21 @@ if total_profit >=0 :
 else: total_profit = '${:-}'.format(total_profit)
         
 if ave_change >= 0:
-    ave_change = '${{:0.2f}'.format(ave_change)
+    ave_change = '${:0.2f}'.format(ave_change)
 else: ave_change = '${:-0.2f}'.format(ave_change)
 
 if max_profit >= 0 or min_profit >=0: 
-    max_profit = '${:}'.format(max_profit)
-    min_profit = '${:}'.format(min_profit)
+    max_profit = '(${:})'.format(max_profit)
+    min_profit = '(${:})'.format(min_profit)
 else:
-    max_profit = '${:-}'.format(max_profit)
-    min_profit = '${:-}'.format(min_profit)
+    max_profit = '(${:-})'.format(max_profit)
+    min_profit = '(${:-})'.format(min_profit)
 
 
 #create new csv
 filename = os.path.join('D:\\Python_Challenges\\python-challenge\\Pybank','summary_budget.csv')
 
-summary_rows = (['Financial Analysis'],['-------------------------------------'],[f'Total Months:  {total_months}'],[f'Total:  {total_profit}'],[f'Average Change:  {ave_change}'],[f'Greatest Increase in Profits:  {max_date}  {max_profit}'],[f'Greatest Decrease in Profits:  {min_date}  {min_profit}'])
+summary_rows = (['Financial Analysis'],['-------------------------------------'],[f'Total Months:  {total_months}'],[f'Total:  {total_profit}'],[f'Average Change:  {ave_change}'],[f'Greatest Increase in Profits:  {max_date}   {max_profit}'],[f'Greatest Decrease in Profits:  {min_date}  {min_profit}'])
                 
 # Open the file in "write" mode ('w') and store the contents in the variable "modbudget"
 with open(filename,'w', newline='') as modbudget:
